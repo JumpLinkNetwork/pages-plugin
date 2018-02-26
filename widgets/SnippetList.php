@@ -10,6 +10,8 @@ use Request;
 use Str;
 use Lang;
 
+use Debugbar as Debugbar;
+
 /**
  * Snippet list widget.
  *
@@ -91,6 +93,7 @@ class SnippetList extends WidgetBase
 
     protected function updateList()
     {
+        Debugbar::info('[SnippetList] updateList');
         return ['#'.$this->getId('snippet-list') => $this->makePartial('items', ['items' => $this->getData()])];
     }
 

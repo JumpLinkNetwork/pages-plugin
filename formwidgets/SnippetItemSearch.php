@@ -7,7 +7,8 @@ use Request;
 use Response;
 use Backend\Classes\FormWidgetBase;
 use Cms\Classes\Theme;
-use RainLab\Pages\Classes\MenuItem;
+use RainLab\Pages\Classes\SnippetItem;
+use RainLab\Pages\Classes\SnippetManager;
 
 use Debugbar as Debugbar;
 
@@ -17,11 +18,21 @@ use Debugbar as Debugbar;
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-class MenuItemSearch extends FormWidgetBase
+class SnippetItemSearch extends FormWidgetBase
 {
     use \Backend\Traits\SearchableWidget;
 
-    public $searchPlaceholderMessage = 'rainlab.pages::lang.menuitem.search_placeholder';
+    protected $theme;
+    protected $snippetManager;
+
+    public $searchPlaceholderMessage = 'rainlab.pages::lang.snippetitem.search_placeholder';
+
+    public function __construct($controller, $formField, $configuration)
+    {
+        parent::__construct($controller, $formField, $configuration);
+        $this->theme = Theme::getEditTheme();
+        $this->snippetManager = SnippetManager::instance();
+    }
 
     /**
      * Renders the widget.
@@ -47,6 +58,7 @@ class MenuItemSearch extends FormWidgetBase
      */
     protected function getData()
     {
+        Debugbar::info('[SnippetItemSearch] getData');
         return [
             'results' => $this->getMatches()
         ];
@@ -59,24 +71,20 @@ class MenuItemSearch extends FormWidgetBase
             return [];
         }
 
-        $words = explode(' ', $searchTerm);
-
         $types = [];
-        $item = new MenuItem();
-        foreach ($item->getTypeOptions() as $type => $typeTitle) {
-            $typeInfo = MenuItem::getTypeInfo($type);
-            if (empty($typeInfo['references'])) {
-                continue;
-            }
-
+        $allSnippets = $this->snippetManager->listSnippets($this->theme);
+        $words = explode(' ', $searchTerm);
+        foreach (SnippetItem::getTypeOptions() as $type => $typeTitle) {
             $typeMatches = [];
-            foreach ($typeInfo['references'] as $key => $referenceInfo) {
-                $title = is_array($referenceInfo) ? $referenceInfo['title'] : $referenceInfo;
-
-                if ($this->textMatchesSearch($words, $title)) {
+            foreach ($allSnippets as $index => $snippet) {
+                // Debugbar::info('[SnippetItemSearch] getMatches $snippet', $snippet);
+                $code = $snippet->code;
+                $name = $snippet->getName();
+                $currentType = $snippet->getType();
+                if ( $currentType == $type and $this->textMatchesSearch($words, $name) ) {
                     $typeMatches[] = [
-                        'id'   => "$type::$key",
-                        'text' => $title
+                        'id'   => "$type::$code",
+                        'text' => $name
                     ];
                 }
             }
@@ -89,7 +97,7 @@ class MenuItemSearch extends FormWidgetBase
             }
         }
 
-        Debugbar::info('[MenuItemSearch] getMatches $types', $types);
+        // Debugbar::info('[SnippetItemSearch] getMatches $types', $types);
 
         return $types;
     }

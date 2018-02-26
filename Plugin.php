@@ -168,6 +168,17 @@ class Plugin extends PluginBase
             }
         });
 
+        // TODO
+        Event::listen('pages.snippetitem.getTypeInfo', function($type) {
+            if ($type == 'theme') {
+                return [];
+            }
+
+            if ($type == 'component') {
+                return [];
+            }
+        });
+
         Event::listen('pages.menuitem.resolveItem', function($type, $item, $url, $theme) {
             if ($type == 'static-page' || $type == 'all-static-pages') {
                 return StaticPage::resolveMenuItem($item, $url, $theme);

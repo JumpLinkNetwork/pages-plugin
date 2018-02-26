@@ -88,6 +88,37 @@ class Snippet
      * This method should not be used in the front-end request handling.
      * @return string
      */
+    public function getType()
+    {
+        if ($this->componentClass !== null) {
+            return 'component';
+        } else {
+            return 'theme';
+        }
+    }
+
+    /**
+     * Returns a list of available snippet types
+     * @return array Returns an array of available snippet types
+     */
+    public static function getTypeOptions($keyValue = null)
+    {
+        /*
+         * Baked in types
+         */
+        $result = [
+            'theme' => 'Theme Snippets',
+            'component' => 'Component Snippets',
+        ];
+
+        return $result;
+    }
+
+    /**
+     * Returns the snippet name.
+     * This method should not be used in the front-end request handling.
+     * @return string
+     */
     public function getName()
     {
         if ($this->name !== null) {

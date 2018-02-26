@@ -62,6 +62,29 @@ return [
         'code' => 'Code',
         'code_comment' => 'Geben Sie einen Menüpunkt-Code ein, wenn Sie diesen mit der API ansprechen möchten.'
     ],
+    'snippetitem' => [
+        'title' => 'Titel',
+        'editor_title' => 'Menüpunkt bearbeiten',
+        'type' => 'Typ',
+        'allow_nested_items' => 'Erlaube verschachtelte Menüpunkte',
+        'allow_nested_items_comment' => 'Verschachtelte Menüpunkte können dynamisch durch statische Seiten und einigen anderen Menüpunkt-Typen erzeugt werden.',
+        'url' => 'URL',
+        'reference' => 'Referenz',
+        'title_required' => 'Ein Titel ist erforderlich',
+        'unknown_type' => 'Unbekannter Menüpunkt-Typ',
+        'unnamed' => 'Unbekannter Menüpunkt',
+        'add_item' => 'Snippet hinzufügen',
+        'new_item' => 'Neues Snippet',
+        'replace' => 'Ersetze diesen Menüpunkt mit seinen Unterpunkten',
+        'replace_comment' => 'Verwenden Sie diese Option, um erzeugte Menüpunkte auf die gleiche Ebene von diesem zu bringen. Dieser Menüpunkt selbst wird ausgeblendet.',
+        'cms_page' => 'CMS Seite',
+        'cms_page_comment' => 'Wählen Sie eine Seite die geöffnet werden soll, wenn dieser Menüpunkt angeklickt wird.',
+        'reference_required' => 'Eine Menüpunkt-Referenz ist erforderlich',
+        'url_required' => 'Eine URL ist erforderlich',
+        'cms_page_required' => 'Bitten wählen Sie eine CMS Seite',
+        'code' => 'Code',
+        'code_comment' => 'Geben Sie einen Menüpunkt-Code ein, wenn Sie diesen mit der API ansprechen möchten.'
+    ],
     'content' => [
         'menu_label' => 'Inhalte',
         'cant_save_to_dir' => 'Das Speichern von Inhaltsdateien in den Statische-Seiten Ordner ist nicht erlaubt.'

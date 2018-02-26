@@ -64,3 +64,8 @@ secondaryTabs:
             type: richeditor
             stretch: true
             size: huge
+        items:
+            tab: rainlab.pages::lang.snippet.menu_label
+            type: RainLab\Pages\FormWidgets\SnippetItems
+            stretch: true
+            size: huge

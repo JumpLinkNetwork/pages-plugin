@@ -315,12 +315,31 @@ class Index extends Controller
         ];
     }
 
+    /**
+     * Handler to search for menu items in modal search input
+     */
     public function onMenuItemReferenceSearch()
     {
         $alias = Request::input('alias');
 
         $widget = $this->makeFormWidget(
             'Rainlab\Pages\FormWidgets\MenuItemSearch',
+            [],
+            ['alias' => $alias]
+        );
+
+        return $widget->onSearch();
+    }
+
+    /**
+     * Handler to search for snippets items e.g. after click on add snippet
+     */
+    public function onSnippetItemReferenceSearch()
+    {
+        $alias = Request::input('alias');
+
+        $widget = $this->makeFormWidget(
+            'Rainlab\Pages\FormWidgets\SnippetItemSearch',
             [],
             ['alias' => $alias]
         );

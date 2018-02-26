@@ -1,0 +1,8 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    search:
+        type: Rainlab\Pages\FormWidgets\SnippetItemSearch
