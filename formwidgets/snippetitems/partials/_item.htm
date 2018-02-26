@@ -5,12 +5,12 @@
 <li
     class="<?= $item->items ? 'has-subitems' : null ?>"
     data-status="<?= $groupStatus || !$item->items ? 'expanded' : 'collapsed' ?>"
-    data-menu-item="<?= e(json_encode($item->toArray())) ?>"
+    data-snippet-item="<?= e(json_encode($item->toArray())) ?>"
 >
     <div>
-        <a href="#" data-menu-item-link>
-            <span class="title"><?= e($item->title) ?></span>
-            <span class="comment"><?= e($this->getReferenceDescription($item)) ?></span>
+        <a href="#" data-snippet-item-link>
+            <span class="name"><?= e($item->getName()) ?></span>
+            <span class="comment"><?= e($item->getDescription()) ?></span>
         </a>
 
         <ul class="submenu">

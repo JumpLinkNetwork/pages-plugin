@@ -124,3 +124,22 @@
     padding: 10px 20px;
     background: #fff;
 }
+
+.control-treeview.control-treeview-snippets ol > li > div:before {
+  position: absolute;
+  width: 17px;
+  height: 19px;
+  left: 18px;
+  top: 13px;
+
+  content: ' ';
+
+  background-image: url(../images/snippet-icons.png);
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 34px auto;
+}
+
+.control-treeview.control-treeview-snippets ol > li > div:hover:before {
+  background-position: 0 -21px;
+}

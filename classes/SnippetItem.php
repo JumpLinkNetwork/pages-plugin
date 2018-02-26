@@ -6,6 +6,9 @@ use Lang;
 use Event;
 use RainLab\Pages\Classes\Snippet;
 
+use RainLab\Pages\Classes\SnippetManager;
+use Cms\Classes\Partial;
+
 use Debugbar as Debugbar;
 
 /**
@@ -94,7 +97,48 @@ class SnippetItem extends Snippet
      */
     public $viewBag = [];
 
+    public static function extractSnippetItemsFromMarkupCached($theme, $pageName, $markup)
+    {
+        $snippetManager = SnippetManager::instance();
+        $map = self::extractSnippetsFromMarkupCached($theme, $pageName, $markup);
+        $partialSnippetMap = $snippetManager->getPartialSnippetMap($theme);
+        $snippetItems = [];
 
+        foreach ($map as $snippetDeclaration => $snippetInfo) {
+            $snippetCode = $snippetInfo['code'];
+            $componentClass = $snippetInfo['component'];
+            $partialFileName = $partialSnippetMap[$snippetCode];
+            // $snippetType = $componentClass === null ? 'theme' : 'component'; 
+            $snippetProperties = $snippetInfo['properties'];
+            // $partial = Partial::loadCached($theme, $partialFileName);
+
+            $snippet = $snippetManager->findByCodeOrComponent($theme, $snippetCode, $componentClass, true);
+            $snippetItem = self::initFromSnippet($snippet);
+
+            $snippetItems[] = $snippetItem;
+        }
+
+        return $snippetItems;
+    }
+
+    /**
+     * Create a SnippetItem object from a Snippet object 
+     */
+    public static function initFromSnippet($snippet)
+    {
+        $snippetItem = new self;
+        foreach ($snippet as $name => $value) {
+            if ($name != 'items') {
+                if (property_exists($snippetItem, $name)) {
+                    $snippetItem->$name = $value;
+                }
+            }
+            else {
+                $snippetItem->items = self::initFromArray($value);
+            }
+        }
+        return $snippetItem;
+    }
 
     /**
      * Initializes a menu item from a data array. 

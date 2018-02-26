@@ -43,7 +43,6 @@ class SnippetItems extends FormWidgetBase
      */
     public function init()
     {
-        Debugbar::info('init');
     }
 
     /**
@@ -65,15 +64,19 @@ class SnippetItems extends FormWidgetBase
     {
         $snippetItem = new SnippetItem;
 
-        // $pageSnippets = $snippetItem->listPageComponents($this->model->attributes['fileName'], Theme::getEditTheme(), $this->model->attributes['markup']);
-        // Debugbar::info('[SnippetItems] prepareVars $pageSnippets', $pageSnippets);
+        $extractSnippetItems = SnippetItem::extractSnippetItemsFromMarkupCached(Theme::getEditTheme(), $this->model->attributes['fileName'], $this->model->attributes['markup']);
+        Debugbar::info('[SnippetItems] prepareVars $extractSnippetItems', $extractSnippetItems);
+        $this->vars['items'] = $extractSnippetItems;
+
+        // TODO use extractSnippets ..
 
         $this->vars['itemProperties'] = json_encode($snippetItem->fillable);
         // $this->vars['items'] = $this->model->items;
 
-        $this->vars['items'] = [];
+        // $this->vars['items'] = [];
 
-        Debugbar::info('[SnippetItems] prepareVars $this->model->attributes[markup]', $this->model->attributes['markup']);
+
+        Debugbar::info('[SnippetItems] prepareVars $this->model->attributes', $this->model->attributes);
 
         $emptyItem = new SnippetItem;
         $emptyItem->title = trans($this->newItemTitle);
@@ -111,71 +114,37 @@ class SnippetItems extends FormWidgetBase
     // Methods for the internal use
     //
 
-    /**
-     * Returns the item reference description.
-     * @param \RainLab\Pages\Classes\SnippetItem $item Specifies the menu item
-     * @return string 
-     */
-    protected function getReferenceDescription($item)
-    {
-        Debugbar::info('[SnippetItems] getReferenceDescription', $item);
-        if ($this->typeListCache === false) {
-            $this->typeListCache = $item->getTypeOptions();
-        }
-
-        if (!isset($this->typeInfoCache[$item->type])) {
-            $this->typeInfoCache[$item->type] = SnippetItem::getTypeInfo($item->type);
-        }
-
-        if (isset($this->typeInfoCache[$item->type]) ) {
-            $result = trans($this->typeListCache[$item->type]);
-
-            if ($item->type !== 'url') {
-                if (isset($this->typeInfoCache[$item->type]['references'])) {
-                    $result .= ': '.$this->findReferenceName($item->reference, $this->typeInfoCache[$item->type]['references']);
-                }
-            }
-            else {
-                $result .= ': '.$item->url;
-            }
-
-        }
-        else {
-            $result = trans('rainlab.pages::lang.snippetitem.unknown_type');
-        }
-
-        return $result;
-    }
 
     protected function findReferenceName($search, $typeOptionList)
     {
         Debugbar::info('[SnippetItems] findReferenceName $search', $search);
-        $iterator = function($optionList, $path) use ($search, &$iterator) {
-            foreach ($optionList as $reference => $info) {
-                if ($reference == $search) {
-                    $result = $this->getSnippetItemTitle($info);
+        // $iterator = function($optionList, $path) use ($search, &$iterator) {
+        //     foreach ($optionList as $reference => $info) {
+        //         if ($reference == $search) {
+        //             $result = $this->getSnippetItemTitle($info);
 
-                    return strlen($path) ? $path.' / ' .$result : $result;
-                }
+        //             return strlen($path) ? $path.' / ' .$result : $result;
+        //         }
 
-                if (is_array($info) && isset($info['items'])) {
-                    $result = $iterator($info['items'], $path.' / '.$this->getSnippetItemTitle($info));
+        //         if (is_array($info) && isset($info['items'])) {
+        //             $result = $iterator($info['items'], $path.' / '.$this->getSnippetItemTitle($info));
 
-                    if (strlen($result)) {
-                        return strlen($path) ? $path.' / '.$result : $result;
-                    }
-                }
-            }
-        };
+        //             if (strlen($result)) {
+        //                 return strlen($path) ? $path.' / '.$result : $result;
+        //             }
+        //         }
+        //     }
+        // };
 
-        $result = $iterator($typeOptionList, null);
-        if (!strlen($result)) {
-            $result = trans('rainlab.pages::lang.snippetitem.unnamed');
-        }
+        // $result = $iterator($typeOptionList, null);
+        // if (!strlen($result)) {
+        //     $result = trans('rainlab.pages::lang.snippetitem.unnamed');
+        // }
 
-        $result = preg_replace('|^\s+\/|', '', $result);
+        // $result = preg_replace('|^\s+\/|', '', $result);
 
-        return $result;
+        // return $result = trans('rainlab.pages::lang.snippetitem.unnamed');
+        return 'findReferenceName TODO';
     }
 
     protected function getSnippetItemTitle($itemInfo)

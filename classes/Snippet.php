@@ -11,6 +11,8 @@ use Cms\Classes\Controller as CmsController;
 use ValidationException;
 use DOMDocument;
 
+use Debugbar as Debugbar;
+
 /**
  * Represents a static page snippet.
  *
@@ -185,6 +187,9 @@ class Snippet
      */
     public static function listPageComponents($pageName, $theme, $markup)
     {
+        Debugbar::info('[Snippet.listPageComponents] $pageName', $pageName);
+        Debugbar::info('[Snippet.listPageComponents] $theme', $theme);
+        Debugbar::info('[Snippet.listPageComponents] $markup', $markup);
         $map = self::extractSnippetsFromMarkupCached($theme, $pageName, $markup);
 
         $result = [];
