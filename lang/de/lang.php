@@ -62,9 +62,26 @@ return [
         'code' => 'Code',
         'code_comment' => 'Geben Sie einen Menüpunkt-Code ein, wenn Sie diesen mit der API ansprechen möchten.'
     ],
+    'snippetmenu' => [
+        'menu_label' => 'Menüs',
+        'delete_confirmation' => 'Möchten Sie die ausgewählten Menüs wirklich löschen?',
+        'no_records' => 'Keine Menüs gefunden',
+        'new' => 'Neues Menü',
+        'new_name' => 'Menüname',
+        'new_code' => 'menuename',
+        'delete_confirm_single' => 'Möchten Sie das ausgewählte Menü wirklich löschen?',
+        'saved' => 'Das Menü wurde erfolgreich gespeichert.',
+        'name' => 'Name',
+        'code' => 'Code',
+        'items' => 'Menüpunkte',
+        'add_subitem' => 'Neues Snippet',
+        'no_records' => 'Keine Snippets gefunden',
+        'code_required' => 'Ein Code ist erforderlich',
+        'invalid_code' => 'Ungültiges Code Format. Der Code darf Ziffern, Buchstaben und folgenden Symbole enthalten: _-/'
+    ],
     'snippetitem' => [
         'title' => 'Titel',
-        'editor_title' => 'Menüpunkt bearbeiten',
+        'editor_title' => 'Snippet bearbeiten',
         'type' => 'Typ',
         'allow_nested_items' => 'Erlaube verschachtelte Menüpunkte',
         'allow_nested_items_comment' => 'Verschachtelte Menüpunkte können dynamisch durch statische Seiten und einigen anderen Menüpunkt-Typen erzeugt werden.',

@@ -24,9 +24,9 @@ class SnippetItems extends FormWidgetBase
      */
     protected $defaultAlias = 'snippetitems';
 
-    public $addSubitemLabel = 'rainlab.pages::lang.menu.add_subitem';
+    public $addSubitemLabel = 'rainlab.pages::lang.snippetmenu.add_subitem';
 
-    public $noRecordsMessage = 'rainlab.pages::lang.menu.no_records';
+    public $noRecordsMessage = 'rainlab.pages::lang.snippetmenu.no_records';
 
     public $titleRequiredMessage = 'rainlab.pages::lang.snippetitem.title_required';
 
@@ -43,6 +43,13 @@ class SnippetItems extends FormWidgetBase
      */
     public function init()
     {
+    }
+
+    public function makeTrimedPartial($partial, $params = [], $throwException = true)
+    {
+        $partialString = $this->makePartial($partial, $params, $throwException);
+        $partialString = trim(preg_replace('/\s+/', ' ', $partialString));
+        return $partialString;
     }
 
     /**
@@ -99,6 +106,12 @@ class SnippetItems extends FormWidgetBase
      */
     protected function loadAssets()
     {
+        $this->addCss('css/list.css', 'core');
+        $this->addJs('js/rivets.bundled.min.js', 'core');
+        $this->addJs('js/utilities.js', 'core');
+        $this->addJs('js/formatters.js', 'core');
+        $this->addJs('js/binders.js', 'core');
+        $this->addJs('js/components.js', 'core');
         $this->addJs('js/snippet-items-editor.js', 'core');
     }
 

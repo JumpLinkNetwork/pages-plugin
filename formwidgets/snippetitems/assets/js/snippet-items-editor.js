@@ -76,15 +76,16 @@
         console.log('[SnippetItemsEditor.onItemClick]');
 
         $container.one('show.oc.popup', function(e){
-            console.log('[SnippetItemsEditor.onItemClick] show.oc.popup');
-            $(document).trigger('render')
+            $(document).trigger('render');
 
             self.$popupContainer = $(e.relatedTarget);
-            self.$itemDataContainer = $container.closest('li')
+            self.$itemDataContainer = $container.closest('li[data-snippet-item]');
+
+            console.log('[SnippetItemsEditor] show.oc.popup self.$popupContainer', self.$popupContainer, 'self.$itemDataContainer', self.$itemDataContainer);
 
             $('input[type=checkbox]', self.$popupContainer).removeAttr('checked')
 
-            self.loadProperties(self.$popupContainer, self.$itemDataContainer.data('menu-item'))
+            self.loadProperties(self.$popupContainer, self.$itemDataContainer.data('snippet-item'))
             self.$popupForm = self.$popupContainer.find('form')
             self.itemSaved = false
 
@@ -195,7 +196,21 @@
             }
         }
 
+        // TODO
+        var $snippetProperies = $popupContainer.find('.snippet-properies');
+        console.log('[SnippetItemsEditor.loadProperties] $snippetProperies', $snippetProperies);
+        $snippetProperies.append(
+            '<select class="form-control custom-select">'+
+                '<option selected="selected" value="2">Approved</option>'+
+                '<option value="3">Deleted</option>'+
+                '<option value="1">New</option>'+
+            '</select>'
+        );
+
         $.each(properties, function(property, val) {
+
+            
+
             if (property == 'viewBag') {
                 $.each(val, function(vbProperty, vbVal) {
                     var $input = $('[name="viewBag['+vbProperty+']"]', $popupContainer).not('[type=hidden]')
@@ -552,7 +567,7 @@
 
     SnippetItemsEditor.prototype.onCreateItem = function(target) {
         console.log('[SnippetItemsEditor] onCreateItem');
-        var parentList = $(target).closest('li[data-menu-item]').find(' > ol'),
+        var parentList = $(target).closest('li[data-snippet-item]').find(' > ol'),
             item = $($('script[data-item-template]', this.$el).html())
 
         if (!parentList.length)
@@ -598,6 +613,6 @@
     // ===============
 
     $(document).on('render', function() {
-        $('[data-control="snippet-item-editor"]').SnippetItemsEditor()
+        $('[data-control="snippet-item-editor"]').SnippetItemsEditor();
     });
 }(window.jQuery);

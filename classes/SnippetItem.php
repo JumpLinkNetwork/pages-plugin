@@ -23,77 +23,42 @@ use Debugbar as Debugbar;
 class SnippetItem extends Snippet
 {
     /**
-     * @var string Specifies the menu title
-     */
-    public $title;
-
-    /**
      * @var array Specifies the item subitems
+     * TODO remove?
      */
     public $items = [];
 
-    /**
-     * @var string Specifies the parent menu item.
-     * An object of the RainLab\Pages\Classes\SnippetItem class or null.
-     */
-    public $parent;
-
-    /**
-     * @var boolean Determines whether the auto-generated menu items could have subitems.
-     */
-    public $nesting;
-
-    /**
-     * @var string Specifies the menu item type - URL, static page, etc.
-     */
-    public $type;
-
-    /**
-     * @var string Specifies the URL for URL-type items.
-     */
-    public $url;
-
-    /**
-     * @var string Specifies the menu item code.
-     */
-    public $code;
-
-    /**
-     * @var string Specifies the object identifier the item refers to.
-     * The identifier could be the database identifier or an object code.
-     */
-    public $reference;
-
-    /**
-     * @var boolean Indicates that generated items should replace this item.
-     */
-    public $replace;
-
-    /**
-     * @var string Specifies the CMS page path to resolve dynamic menu items to.
-     */
-    public $cmsPage;
 
     /**
      * @var boolean Used by the system internally.
+     * TODO remove?
      */
     public $exists = false;
 
+    /**
+     * @var string Specifies the snippet description.
+     */
+    public $description = null;
+
+    /**
+     * @var string Specifies the snippet name.
+     */
+    public $name = null;
+
+    /**
+     * @var string Snippet properties.
+     */
+    public $properties;
+
     public $fillable = [
-        'title',
-        'nesting',
-        'type',
-        'url',
-        'code',
-        'reference',
-        'cmsPage',
-        'replace',
-        'viewBag'
+        'properties'
     ];
 
     /**
      * @var array Contains the view bag properties.
      * This property is used by the menu editor internally.
+     * 
+     * TODO did we need this?
      */
     public $viewBag = [];
 
@@ -110,10 +75,10 @@ class SnippetItem extends Snippet
             $partialFileName = $partialSnippetMap[$snippetCode];
             // $snippetType = $componentClass === null ? 'theme' : 'component'; 
             $snippetProperties = $snippetInfo['properties'];
-            // $partial = Partial::loadCached($theme, $partialFileName);
-
+            
             $snippet = $snippetManager->findByCodeOrComponent($theme, $snippetCode, $componentClass, true);
             $snippetItem = self::initFromSnippet($snippet);
+            $snippetItem->setProperties($snippetProperties);
 
             $snippetItems[] = $snippetItem;
         }
@@ -128,91 +93,25 @@ class SnippetItem extends Snippet
     {
         $snippetItem = new self;
         foreach ($snippet as $name => $value) {
-            if ($name != 'items') {
-                if (property_exists($snippetItem, $name)) {
-                    $snippetItem->$name = $value;
-                }
-            }
-            else {
-                $snippetItem->items = self::initFromArray($value);
+            if (property_exists($snippetItem, $name)) {
+                $snippetItem->$name = $value;
             }
         }
         return $snippetItem;
     }
 
-    /**
-     * Initializes a menu item from a data array. 
-     * @param array $items Specifies the menu item data.
-     * @return Returns an array of the SnippetItem objects.
-     */
-    public static function initFromArray($items)
+    public function setProperties($properties)
     {
-        $result = [];
-
-        foreach ($items as $itemData) {
-            $obj = new self;
-
-            foreach ($itemData as $name => $value) {
-                if ($name != 'items') {
-                    if (property_exists($obj, $name)) {
-                        $obj->$name = $value;
-                    }
-                }
-                else {
-                    $obj->items = self::initFromArray($value);
-                }
-            }
-
-            $result[] = $obj;
-        }
-
-        return $result;
-    }
-
-    public function getCmsPageOptions($keyValue = null)
-    {
-        return []; // CMS Pages are loaded client-side
-    }
-
-    public function getReferenceOptions($keyValue = null)
-    {
-        return []; // References are loaded client-side
-    }
-
-    public static function getTypeInfo($type)
-    {
-        $result = [];
-        $apiResult = Event::fire('pages.snippetitem.getTypeInfo', [$type]);
-
-        Debugbar::info('[SnippetItem] getTypeInfo('.$type.') $apiResult (event)', $apiResult);
-
-        if (is_array($apiResult)) {
-            foreach ($apiResult as $typeInfo) {
-                if (!is_array($typeInfo)) {
-                    continue;
-                }
-
-                foreach ($typeInfo as $name => $value) {
-                    $result[$name] = $value;
-                }
-            }
-        }
-
-        return $result;
+        $this->properties = $properties;
+        return $properties;
     }
 
     /**
-     * Converts the menu item data to an array
-     * @return array Returns the menu item data as array
+     * Get the snippet item properties
+     * @return array Returns the snippet item properties as array
      */
-    public function toArray()
+    public function getProperties()
     {
-        $result = [];
-
-        foreach ($this->fillable as $property) {
-            $result[$property] = $this->$property;
-        }
-
-        return $result;
+        return $this->properties;
     }
 }

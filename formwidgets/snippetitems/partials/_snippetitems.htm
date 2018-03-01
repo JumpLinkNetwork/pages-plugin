@@ -1,4 +1,7 @@
-<!-- snippetitems/partials/_snippetitems.htm -->
+<!--
+    snippetitems/partials/_snippetitems.htm
+    TODO use sortable instead of treeview: https://github.com/octobercms/october/blob/master/modules/system/assets/ui/docs/drag-sort.md
+-->
 <div
     class="layout-absolute"
     data-control="snippet-item-editor"
@@ -12,6 +15,7 @@
             id="<?= $this->getId('item-list') ?>"
         >
             <?= $this->makePartial('items', ['items' => $items]) ?>
+            <items items="'<?= e(json_encode($items)) ?>'"></items>
         </div>
     </div>
 
@@ -22,4 +26,6 @@
     <script type="text/template" data-item-template>
         <?= $this->makePartial('item', ['item' => $emptyItem]) ?>
     </script>
+
+    <?= $this->makePartial('components') ?>
 </div>

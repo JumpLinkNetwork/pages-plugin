@@ -1,16 +1,10 @@
-<!-- snippetitems/partials/_item.htm -->
-<?php
-    $groupStatus = true;
-?>
 <li
-    class="snippet-item <?= $item->items ? 'has-subitems' : null ?>"
-    data-status="<?= $groupStatus || !$item->items ? 'expanded' : 'collapsed' ?>"
-    data-snippet-item="<?= e(json_encode($item->getProperties())) ?>"
+    class="snippet-item"
 >
     <div>
         <a href="#" data-snippet-item-link>
-            <span class="name"><?= e($item->getName()) ?></span>
-            <span class="comment"><?= e($item->getDescription()) ?></span>
+            <span class="name">{item.name}</span>
+            <span class="comment">{item.description}</span>
         </a>
 
         <ul class="submenu">
@@ -30,10 +24,4 @@
             </li>
         </ul>
     </div>
-
-    <ol>
-        <?php if ($subItems = $item->items): ?>
-            <?= $this->makePartial('itemlist', ['items' => $subItems]) ?>
-        <?php endif ?>
-    </ol>
 </li>
