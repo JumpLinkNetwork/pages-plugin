@@ -1,0 +1,156 @@
+/**
+ * For avabile variables see https://github.com/octobercms/october/blob/master/modules/backend/assets/less/core/boot.less
+ * Build this file with `lessc less/snippetitems.less css/snippetitems.css` from the parent directory
+ * Or in watch mode with `less-watch-compiler less css`
+ */
+@import "../../../../../../../modules/backend/assets/less/core/boot.less";
+
+snippet-editor {
+  display: block;
+  snippet-itemlist {
+    display: block;
+    snippet-item {
+      display: flex;
+      flex-direction: row;
+      // align-items: stretch;
+      justify-content: space-between;
+      font-size: @font-size-base;
+      background-color: transparent; // @color-treeview-item-bg;
+      user-select: none;
+
+      .snippet-icon {
+        background-image: url(../../../../assets/images/snippet-icons.png);
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-size: 42px auto;
+      
+        height: 25px;
+        width: 25px;
+      
+        margin-left: 25px;
+        margin-right: 15px;
+        margin-top: 15px;
+      }
+
+      .info {
+        padding: 11px 45px 10px 0px;
+        flex-grow: 1;
+
+        cursor: pointer;
+
+        .name,
+        .comment {
+          display: block;
+          width: 100%;
+        }
+        .name {
+          color: @color-treeview-item-title;
+        }
+        .comment {
+          color: @color-treeview-item-comment;
+        }
+      }
+      .submenu {
+        display: flex;
+        flex-direction: row;
+        color: @color-treeview-submenu-text;
+        opacity: 0;
+        
+        .create-item,
+        .drag-handle,
+        .delete-item {
+          height: 100%;
+          padding: 0 20px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        }
+
+        .drag-handle,
+        .delete-item {
+          width: 60px;
+        }
+
+        .create-item {
+          font-size: 13px;
+          i {
+            margin-right: 5px;
+          }
+        }
+        .delete-item {
+          i {
+            font-size: 22px;
+          }
+        }
+        .drag-handle {
+          cursor: move;
+          i {
+            font-size: 18px;
+          }
+        }
+      }
+
+      &:hover, &.dragged {
+        background-color: @color-treeview-hover-bg;
+
+        .snippet-icon {
+          background-position: 0 -25px;
+        }
+
+        .info {
+          .name {
+            color: @color-treeview-hover-text;
+          }
+          .comment {
+            color: @color-treeview-hover-text;
+          }
+        }
+        .submenu {
+          opacity: 1;
+          background-color: @color-treeview-light-submenu-bg;
+          border-color: @color-treeview-hover-text;
+          color:  @color-treeview-hover-text;
+        }
+      }
+
+      // classes of sortable
+      &.dragged {
+        position: absolute;
+        opacity: 0.5;
+        z-index: 2000;
+      }
+      &.placeholder {
+        position: relative;
+        height: 61px;
+      }
+
+    }
+  }
+}
+
+// disable hover on sortable dragging action
+.dragging {
+  snippet-editor {
+    snippet-itemlist {
+      snippet-item {
+        &:not(.dragged) {
+          background-color: transparent !important;
+          .snippet-icon {
+            background-position: 0 0;
+          }
+          .info {
+            .name {
+              color: @color-treeview-item-title !important;
+            }
+            .comment {
+              color: @color-treeview-item-comment !important;
+            }
+          }
+          .submenu {
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
+}

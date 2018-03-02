@@ -1,0 +1,127 @@
+/**
+ * For avabile variables see https://github.com/octobercms/october/blob/master/modules/backend/assets/less/core/boot.less
+ * Build this file with `lessc less/snippetitems.less css/snippetitems.css` from the parent directory
+ * Or in watch mode with `less-watch-compiler less css`
+ */
+snippet-editor {
+  display: block;
+}
+snippet-editor snippet-itemlist {
+  display: block;
+}
+snippet-editor snippet-itemlist snippet-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 14px;
+  background-color: transparent;
+  user-select: none;
+}
+snippet-editor snippet-itemlist snippet-item .snippet-icon {
+  background-image: url(../../../../assets/images/snippet-icons.png);
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 42px auto;
+  height: 25px;
+  width: 25px;
+  margin-left: 25px;
+  margin-right: 15px;
+  margin-top: 15px;
+}
+snippet-editor snippet-itemlist snippet-item .info {
+  padding: 11px 45px 10px 0px;
+  flex-grow: 1;
+  cursor: pointer;
+}
+snippet-editor snippet-itemlist snippet-item .info .name,
+snippet-editor snippet-itemlist snippet-item .info .comment {
+  display: block;
+  width: 100%;
+}
+snippet-editor snippet-itemlist snippet-item .info .name {
+  color: #2b3e50;
+}
+snippet-editor snippet-itemlist snippet-item .info .comment {
+  color: #95a5a6;
+}
+snippet-editor snippet-itemlist snippet-item .submenu {
+  display: flex;
+  flex-direction: row;
+  color: #ffffff;
+  opacity: 0;
+}
+snippet-editor snippet-itemlist snippet-item .submenu .create-item,
+snippet-editor snippet-itemlist snippet-item .submenu .drag-handle,
+snippet-editor snippet-itemlist snippet-item .submenu .delete-item {
+  height: 100%;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+snippet-editor snippet-itemlist snippet-item .submenu .drag-handle,
+snippet-editor snippet-itemlist snippet-item .submenu .delete-item {
+  width: 60px;
+}
+snippet-editor snippet-itemlist snippet-item .submenu .create-item {
+  font-size: 13px;
+}
+snippet-editor snippet-itemlist snippet-item .submenu .create-item i {
+  margin-right: 5px;
+}
+snippet-editor snippet-itemlist snippet-item .submenu .delete-item i {
+  font-size: 22px;
+}
+snippet-editor snippet-itemlist snippet-item .submenu .drag-handle {
+  cursor: move;
+}
+snippet-editor snippet-itemlist snippet-item .submenu .drag-handle i {
+  font-size: 18px;
+}
+snippet-editor snippet-itemlist snippet-item:hover,
+snippet-editor snippet-itemlist snippet-item.dragged {
+  background-color: #4ea5e0;
+}
+snippet-editor snippet-itemlist snippet-item:hover .snippet-icon,
+snippet-editor snippet-itemlist snippet-item.dragged .snippet-icon {
+  background-position: 0 -25px;
+}
+snippet-editor snippet-itemlist snippet-item:hover .info .name,
+snippet-editor snippet-itemlist snippet-item.dragged .info .name {
+  color: #fff;
+}
+snippet-editor snippet-itemlist snippet-item:hover .info .comment,
+snippet-editor snippet-itemlist snippet-item.dragged .info .comment {
+  color: #fff;
+}
+snippet-editor snippet-itemlist snippet-item:hover .submenu,
+snippet-editor snippet-itemlist snippet-item.dragged .submenu {
+  opacity: 1;
+  background-color: #2581b8;
+  border-color: #fff;
+  color: #fff;
+}
+snippet-editor snippet-itemlist snippet-item.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+snippet-editor snippet-itemlist snippet-item.placeholder {
+  position: relative;
+  height: 61px;
+}
+.dragging snippet-editor snippet-itemlist snippet-item:not(.dragged) {
+  background-color: transparent !important;
+}
+.dragging snippet-editor snippet-itemlist snippet-item:not(.dragged) .snippet-icon {
+  background-position: 0 0;
+}
+.dragging snippet-editor snippet-itemlist snippet-item:not(.dragged) .info .name {
+  color: #2b3e50 !important;
+}
+.dragging snippet-editor snippet-itemlist snippet-item:not(.dragged) .info .comment {
+  color: #95a5a6 !important;
+}
+.dragging snippet-editor snippet-itemlist snippet-item:not(.dragged) .submenu {
+  opacity: 0;
+}

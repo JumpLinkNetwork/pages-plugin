@@ -139,13 +139,13 @@ rivets.components['rv-checkbox'] = {
     }
 }
 
-rivets.components['items'] = {
+rivets.components['snippet-editor'] = {
     template: function() {
-      return jumplink.templates['items'];
+      return jumplink.templates['snippet-editor'];
     },
     initialize: function(el, data) {
       var controller = this;
-      controller.debug = debug('rivets:items');
+      controller.debug = debug('rivets:snippet-editor');
       var $el = $(el);
       controller.debug('initialize', $el, data);
       controller.items = JSON.parse(data.items);
@@ -156,15 +156,15 @@ rivets.components['items'] = {
 }
 
 /** 
- * TODO rename to sortable-list?
+ * 
  */
-rivets.components['itemlist'] = {
+rivets.components['snippet-itemlist'] = {
     template: function() {
-      return jumplink.templates['itemlist'];
+      return jumplink.templates['snippet-itemlist'];
     },
     initialize: function(el, data) {
         var controller = this;
-        controller.debug = debug('rivets:itemlist');
+        controller.debug = debug('rivets:snippet-itemlist');
         var $el = $(el);
         controller.debug('initialize', $el, data);
         controller.items = data.items;
@@ -173,19 +173,23 @@ rivets.components['itemlist'] = {
          * Makes the list sortable
          * @see https://octobercms.com/docs/ui/drag-sort
          */
-        $el.sortable();
+        $el.sortable({
+            itemSelector: 'snippet-item',
+            placeholder: '<snippet-item class="placeholder"></snippet-item>',
+            handle: '.drag-handle',
+        });
 
         return controller;
     }
 }
 
-rivets.components['item'] = {
+rivets.components['snippet-item'] = {
     template: function() {
-      return jumplink.templates['item'];
+      return jumplink.templates['snippet-item'];
     },
     initialize: function(el, data) {
       var controller = this;
-      controller.debug = debug('rivets:item');
+      controller.debug = debug('rivets:snippet-item');
       var $el = $(el);
       controller.debug('initialize', $el, data);
       controller.item = data.item;

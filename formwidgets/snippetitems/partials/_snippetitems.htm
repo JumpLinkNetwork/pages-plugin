@@ -10,12 +10,12 @@
     data-storage-media-path="<?= url(Config::get('cms.storage.media.path')); ?>"
 >
     <div class="control-scrollbar" data-control="scrollbar">
-        <div class="control-treeview control-treeview-snippets treeview-light"
+        <div class="control-treeview control-snippets treeview-light"
             data-control="treeview"
             id="<?= $this->getId('item-list') ?>"
         >
             <?= $this->makePartial('items', ['items' => $items]) ?>
-            <items items="'<?= e(json_encode($items)) ?>'"></items>
+            <snippet-editor items="'<?= e(json_encode($items)) ?>'"></snippet-editor>
         </div>
     </div>
 

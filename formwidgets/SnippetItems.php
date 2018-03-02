@@ -106,7 +106,7 @@ class SnippetItems extends FormWidgetBase
      */
     protected function loadAssets()
     {
-        $this->addCss('css/list.css', 'core');
+        $this->addCss('css/snippetitems.css', 'core');
         $this->addJs('js/rivets.bundled.min.js', 'core');
         $this->addJs('js/utilities.js', 'core');
         $this->addJs('js/formatters.js', 'core');
