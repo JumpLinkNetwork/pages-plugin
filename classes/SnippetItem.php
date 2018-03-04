@@ -23,19 +23,6 @@ use Debugbar as Debugbar;
 class SnippetItem extends Snippet
 {
     /**
-     * @var array Specifies the item subitems
-     * TODO remove?
-     */
-    public $items = [];
-
-
-    /**
-     * @var boolean Used by the system internally.
-     * TODO remove?
-     */
-    public $exists = false;
-
-    /**
      * @var string Specifies the snippet description.
      */
     public $description = null;
@@ -73,12 +60,12 @@ class SnippetItem extends Snippet
             $snippetCode = $snippetInfo['code'];
             $componentClass = $snippetInfo['component'];
             $partialFileName = $partialSnippetMap[$snippetCode];
-            // $snippetType = $componentClass === null ? 'theme' : 'component'; 
-            $snippetProperties = $snippetInfo['properties'];
-            
+            // $snippetType = $componentClass === null ? 'theme' : 'component';
+
+            // key -> value of snippet properties from the current page
+            $snippetPropertieValues = $snippetInfo['properties'];
             $snippet = $snippetManager->findByCodeOrComponent($theme, $snippetCode, $componentClass, true);
-            $snippetItem = self::initFromSnippet($snippet);
-            $snippetItem->setProperties($snippetProperties);
+            $snippetItem = self::initFromSnippet($snippet, $snippetPropertieValues);
 
             $snippetItems[] = $snippetItem;
         }
@@ -89,14 +76,30 @@ class SnippetItem extends Snippet
     /**
      * Create a SnippetItem object from a Snippet object 
      */
-    public static function initFromSnippet($snippet)
+    public static function initFromSnippet($snippet, $propertieValues)
     {
         $snippetItem = new self;
+
+        // Debugbar::info('[SnippetItem] initFromSnippet get_object_vars($snippet)->properties', get_object_vars($snippet)['properties']);
+
+        // take over the public object properties
         foreach ($snippet as $name => $value) {
             if (property_exists($snippetItem, $name)) {
                 $snippetItem->$name = $value;
             }
         }
+
+        // set values from object (protected in $snippet object)
+        $snippetItem->setProperties(get_object_vars($snippet)['properties']);
+
+        // set the snippet propertie values
+        foreach ($propertieValues as $name => $value) {
+            if (array_key_exists($name, $snippetItem->properties)) {
+                // Debugbar::info('[SnippetItem] $name', $name);
+                $snippetItem->properties[$name]['value'] = $value;
+            }
+        }
+
         return $snippetItem;
     }
 
@@ -114,4 +117,5 @@ class SnippetItem extends Snippet
     {
         return $this->properties;
     }
+
 }

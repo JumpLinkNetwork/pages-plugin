@@ -87,6 +87,7 @@ return [
         'allow_nested_items_comment' => 'Verschachtelte Menüpunkte können dynamisch durch statische Seiten und einigen anderen Menüpunkt-Typen erzeugt werden.',
         'url' => 'URL',
         'reference' => 'Referenz',
+        'search_placeholder' => 'Durchsuche alle Snippets',
         'title_required' => 'Ein Titel ist erforderlich',
         'unknown_type' => 'Unbekannter Menüpunkt-Typ',
         'unnamed' => 'Unbekannter Menüpunkt',

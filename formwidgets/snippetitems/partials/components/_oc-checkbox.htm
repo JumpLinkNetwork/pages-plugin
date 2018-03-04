@@ -1,0 +1,22 @@
+<? /* https://octobercms.com/docs/ui/select */ ?>
+<div rv-if="type | eq 'checkbox'" class="form-group">
+  <div class="checkbox custom-checkbox">
+    <input name="checkbox" value="1" type="checkbox" rv-id="id" rv-checked="checked" />
+    <label rv-for="id">{label}</label>
+  </div>
+  <small rv-if="description" class="form-text text-muted">{description}</small>
+</div>
+
+<div rv-if="type | eq 'slider'" class="form-group">
+  <label rv-for="id">{label}</label>
+  <label class="custom-switch">
+    <input name="checkbox" value="1" type="checkbox" rv-id="id" rv-checked="checked" />,
+    <span>
+      <span>On</span>
+      <span>Off</span>
+    </span>
+    <a class="slide-button"></a>
+  </label>
+  <small rv-if="description" class="form-text text-muted">{description}</small>
+</div>
+

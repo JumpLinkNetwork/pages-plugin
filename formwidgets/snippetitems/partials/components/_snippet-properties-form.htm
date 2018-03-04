@@ -1,0 +1,54 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="popup">&times;</button>
+    <h4 class="modal-title"><?= e(trans('rainlab.pages::lang.snippetitem.editor_title')) ?></h4>
+</div>
+<div class="modal-body form-container">
+    <form
+        data-message-title-required="<?= e(trans($this->titleRequiredMessage)) ?>"
+        data-message-reference-required="<?= e(trans($this->referenceRequiredMessage)) ?>"
+        data-message-url-required="<?= e(trans($this->urlRequiredMessage)) ?>"
+        data-message-cmsPage-required="<?= e(trans($this->cmsPageRequiredMessage)) ?>"
+        data-new-item-title="<?= e(trans($this->newItemTitle)) ?>"
+    >
+        <snippet-item-search-form></snippet-item-search-form>
+
+        <div rv-each-property="item.properties | propertyList">
+
+            <? /* https://octobercms.com/docs/ui/form */ ?>
+            <div rv-if="property.value.type | eq 'string'" class="form-group">
+                <label>{property.value.title}</label>
+                <input type="text" rv-name="property.key" rv-value="property.value.value" class="form-control" />
+            </div>
+
+            <oc-select
+                rv-if="property.value.type | eq 'dropdown'"
+                key-value-values="property.value.options"
+                label="property.value.title"
+                name="property.key"
+                value="property.value.value"
+            ></oc-select>
+
+            <oc-checkbox
+                rv-if="property.value.type | eq 'checkbox'"
+                label="property.value.title"
+                name="property.key"
+                type="'slider'"
+                value="property.value.value"
+            ></oc-checkbox>
+
+        </div>
+    </form>
+<div class="modal-footer">
+    <button
+        type="button"
+        class="btn btn-primary"
+        data-control="apply-btn">
+        <?= e(trans('backend::lang.form.apply')) ?>
+    </button>
+    <button
+        type="button"
+        class="btn btn-default"
+        data-dismiss="popup">
+        <?= e(trans('backend::lang.form.cancel')) ?>
+    </button>
+</div>

@@ -1,4 +1,4 @@
-// rivets.js formatters
+// rivets.js formatters  
 
 /**
  * Add useful general-purpose formatters for Rivets.js
@@ -325,6 +325,32 @@ rivets.formatters.eq = function(a, b) {
   
   rivets.formatters.uneven = function (num) {
     return (num % 2) !== 0;
+  };
+
+  /**
+   * Gets an list of key -> value from object
+   * Useful iterate over an object of keys
+   * 
+   * @example
+   * <ul>
+   *   <li data-each-property="some.object | propertyList">
+   *     <strong data-text="property.key"></strong>: <span data-text="property.value"></span>
+   *   </li>
+   * </ul>
+   * 
+   * @see https://github.com/mikeric/rivets/issues/105#issuecomment-11470954
+   */
+  rivets.formatters.propertyList = function(obj) {
+    var key, results, value;
+    results = [];
+    for (key in obj) {
+      value = obj[key];
+      results.push({
+        key: key,
+        value: value
+      });
+    }
+    return results;
   };
   
   

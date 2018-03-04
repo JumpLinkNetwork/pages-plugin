@@ -32,7 +32,50 @@ jumplink.utilities.debug = function(name) {
  */
 jumplink.utilities.isFunction = function (value) {
     return typeof(value) === 'function';
-};  
+}; 
+
+/**
+ * Check if variable is an Array
+ * @see https://stackoverflow.com/a/4775737/1465919
+ */
+jumplink.utilities.isArray = function (value) {
+    return Object.prototype.toString.call( value ) === '[object Array]';
+};
+
+/**
+ * Check whether variable is number or string in JavaScript
+ * @see https://stackoverflow.com/a/1421988/1465919
+ */
+jumplink.utilities.isNumber = function(n) {
+    return !isNaN(parseFloat(n)) && !isNaN(n - 0);
+}
+
+/**
+ * heck if type is Object
+ * @see https://stackoverflow.com/a/4775737/1465919
+ */
+jumplink.utilities.isObject = function (obj) {
+    return obj && typeof obj === 'object';
+};
+
+/**
+ * Check if type is Boolean
+ * @see https://stackoverflow.com/a/28814615/1465919
+ */
+jumplink.utilities.isBoolean = function (boolean) {
+    return typeof(boolean) == typeof(true);
+};
+
+jumplink.utilities.isString = function (string) {
+    return string && typeof string === 'string';
+};
+
+/**
+ * Check if value is undefined
+ */
+jumplink.utilities.isUndefined = function (value) {
+    return typeof(value) === 'undefined';
+};
 
 /**
  * Get the selected value of a select option DOM element

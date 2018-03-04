@@ -34,6 +34,14 @@ class SnippetItemSearch extends FormWidgetBase
         $this->snippetManager = SnippetManager::instance();
     }
 
+    // protected function makeTrimedPartial($partial, $params = [], $throwException = true)
+    // {
+    //     $partialString = $this->makePartial($partial, $params, $throwException);
+    //     $partialString = trim(preg_replace('/\s+/', ' ', $partialString));
+    //     $partialString = str_replace('\'','\\\'', $partialString);
+    //     return $partialString;
+    // }
+
     /**
      * Renders the widget.
      * @return string

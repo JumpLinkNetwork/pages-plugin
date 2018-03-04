@@ -38,6 +38,8 @@ class SnippetItems extends FormWidgetBase
     
     public $newItemTitle = 'rainlab.pages::lang.snippetitem.new_item';
 
+    public $searchPlaceholderMessage = 'rainlab.pages::lang.snippetitem.search_placeholder';
+
     /**
      * {@inheritDoc}
      */
@@ -49,6 +51,7 @@ class SnippetItems extends FormWidgetBase
     {
         $partialString = $this->makePartial($partial, $params, $throwException);
         $partialString = trim(preg_replace('/\s+/', ' ', $partialString));
+        $partialString = str_replace('\'','\\\'', $partialString);
         return $partialString;
     }
 
@@ -58,9 +61,6 @@ class SnippetItems extends FormWidgetBase
     public function render()
     {
         $this->prepareVars();
-
-        Debugbar::info('[SnippetItems] render');
-
         return $this->makePartial('snippetitems');
     }
 
@@ -112,7 +112,7 @@ class SnippetItems extends FormWidgetBase
         $this->addJs('js/formatters.js', 'core');
         $this->addJs('js/binders.js', 'core');
         $this->addJs('js/components.js', 'core');
-        $this->addJs('js/snippet-items-editor.js', 'core');
+        // $this->addJs('js/snippet-items-editor.js', 'core');
     }
 
     /**

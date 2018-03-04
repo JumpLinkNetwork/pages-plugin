@@ -3,8 +3,15 @@
  * Build this file with `lessc less/snippetitems.less css/snippetitems.css` from the parent directory
  * Or in watch mode with `less-watch-compiler less css`
  */
+
+.custom-switch > span {
+  top: 0;
+}
+
 snippet-editor {
   display: block;
+  margin-bottom: 0;
+  margin-top: 20px;
 }
 snippet-editor snippet-itemlist {
   display: block;
